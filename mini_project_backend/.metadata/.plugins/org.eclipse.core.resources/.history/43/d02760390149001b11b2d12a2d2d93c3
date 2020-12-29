@@ -1,0 +1,38 @@
+package com.demo.spring;
+
+import java.awt.PageAttributes.MediaType;
+import java.util.Optional;
+import java.util.logging.Logger;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.demo.spring.entity.Customer;
+import com.demo.spring.repo.CustomerRepository;
+
+@RestController
+@CrossOrigin
+public class CustomerController {
+
+	
+	Logger logger=Logger.getLogger("Customer Controller");
+	@Autowired
+	private CustomerRepository repo;
+
+	@GetMapping(path = "/customer/find/{customerid}", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity findOne(@PathVariable("customerid") int id) {
+
+		Optional<Customer> customerOp = repo.findById(id);
+		if (customerOp.isPresent()) {
+			logger.info("Customer Controller returning emp...");
+			return ResponseEntity.ok(customerOp.get());
+		} else {
+			throw new CustomerNotFoundException(id);
+			
+		}
+	}
+}

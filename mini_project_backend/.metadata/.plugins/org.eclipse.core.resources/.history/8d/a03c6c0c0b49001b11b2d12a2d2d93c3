@@ -1,0 +1,15 @@
+package com.demo.spring;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+
+@SpringBootApplicatione
+@ComponentScan(basePackage = "com.demo.spring")
+public class SpringRestServiceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringRestServiceApplication.class, args);
+	}
+
+}
